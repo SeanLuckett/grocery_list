@@ -4,13 +4,14 @@ export const SET_CATEGORY_FILTER = 'SET_CATEGORY_FILTER';
 export const SET_PURCHASE_FILTER = 'SET_PURCHASE_FILTER';
 export const SET_SORT = 'SET_SORT';
 
-let nextItemId = 1;
+let nextItemId = 2;
 export function addItem(payload) {
   return {
     type: ADD_ITEM,
     payload: {
       ...payload,
       id: nextItemId++,
+      purchased: false,
     }
   }
 }
