@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import {
-  ADD_ITEM, PURCHASE_ITEM, SET_CATEGORY_FILTER,
+  ADD_ITEM, TOGGLE_ITEM_PURCHASE, SET_CATEGORY_FILTER,
   SET_PURCHASE_FILTER, SET_SORT
 } from "./actions";
 
@@ -12,12 +12,12 @@ function groceryList(state = [], action) {
         ...state,
         action.payload,
       ];
-    case PURCHASE_ITEM:
+    case TOGGLE_ITEM_PURCHASE:
       return state.map(item => {
         if (item.id === action.payload) {
           return {
             ...item,
-            purchased: true,
+            purchased: !item.purchased,
 
           };
         }
