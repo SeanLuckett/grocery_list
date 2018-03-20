@@ -6,6 +6,17 @@ import GroceryListContainer from '../containers/GroceryListContainer';
 import AddItemContainer from '../containers/AddItemContainer';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      addItemFormVisible: false,
+    }
+  }
+
+  toggleAddItem = () => {
+    this.setState({addItemFormVisible: !this.state.addItemFormVisible})
+  };
+
   render() {
     return (
       <div className="App">
@@ -13,10 +24,11 @@ class App extends Component {
 
         <Toolbar>
           <ToolbarGroup>
-            <RaisedButton label="New item"/>
+            <RaisedButton label="Add items"
+                          onClick={this.toggleAddItem}/>
           </ToolbarGroup>
         </Toolbar>
-        <AddItemContainer/>
+        <AddItemContainer visible={this.state.addItemFormVisible}/>
         <GroceryListContainer/>
       </div>
     );
