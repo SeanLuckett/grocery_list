@@ -3,6 +3,7 @@ import AppBar from 'material-ui/AppBar';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import RaisedButton from 'material-ui/RaisedButton'
 import GroceryListContainer from '../containers/GroceryListContainer';
+import AddItemContainer from '../containers/AddItemContainer';
 
 class App extends Component {
   render() {
@@ -12,9 +13,10 @@ class App extends Component {
 
         <Toolbar>
           <ToolbarGroup>
-            <RaisedButton label="Add item"/>
+            <RaisedButton label="New item"/>
           </ToolbarGroup>
         </Toolbar>
+        <AddItemContainer/>
         <GroceryListContainer/>
       </div>
     );
