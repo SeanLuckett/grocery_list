@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import {
   ADD_ITEM, TOGGLE_ITEM_PURCHASE, SET_CATEGORY_FILTER,
-  SET_PURCHASE_FILTER, SET_SORT
+  SET_PURCHASE_FILTER, SET_SORT, DELETE_PURCHASED
 } from "./actions";
 
 
@@ -23,6 +23,9 @@ function groceryList(state = [], action) {
         }
         return item;
       });
+
+    case DELETE_PURCHASED:
+      return state.filter(item => !item.purchased)
 
     default:
       return state

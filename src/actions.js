@@ -1,5 +1,6 @@
 export const ADD_ITEM = 'ADD_ITEM';
 export const TOGGLE_ITEM_PURCHASE = 'TOGGLE_ITEM_PURCHASE';
+export const DELETE_PURCHASED = 'DELETE_PURCHASED';
 export const SET_CATEGORY_FILTER = 'SET_CATEGORY_FILTER';
 export const SET_PURCHASE_FILTER = 'SET_PURCHASE_FILTER';
 export const SET_SORT = 'SET_SORT';
@@ -20,6 +21,13 @@ export function toggleItemPurchase(id) {
   return {
     type: TOGGLE_ITEM_PURCHASE,
     payload: id,
+  }
+}
+
+export function deletePurchased() {
+  return {
+    type: DELETE_PURCHASED,
+    payload: {},
   }
 }
 

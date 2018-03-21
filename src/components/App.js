@@ -10,7 +10,20 @@ class App extends Component {
     super();
     this.state = {
       addItemFormVisible: false,
-    }
+      itemsToDelete: false,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const anyCrossedOffItems = this._checkForDeletedItems(nextProps.groceryList);
+    this.setState({
+      itemsToDelete: anyCrossedOffItems,
+    })
+  }
+
+  _checkForDeletedItems(list) {
+    const crossedOff = list.filter(item => item.purchased);
+    return crossedOff.length > 0;
   }
 
   toggleAddItem = () => {
@@ -18,6 +31,8 @@ class App extends Component {
   };
 
   render() {
+    const {deleteItems} = this.props;
+
     return (
       <div className="App">
         <AppBar title="Grocery List" showMenuIconButton={false}/>
@@ -26,10 +41,13 @@ class App extends Component {
           <ToolbarGroup>
             <RaisedButton label="Add items"
                           onClick={this.toggleAddItem}/>
+            <RaisedButton label="Delete crossed-off items"
+                          onClick={() => {deleteItems()}}
+                          disabled={!this.state.itemsToDelete}/>
           </ToolbarGroup>
         </Toolbar>
         <AddItemContainer visible={this.state.addItemFormVisible}/>
-        <GroceryListContainer/>
+        <GroceryListContainer groceryList={this.props.groceryList}/>
       </div>
     );
   }

@@ -2,12 +2,6 @@ import {connect} from 'react-redux';
 import {toggleItemPurchase} from "../actions";
 import GroceryList from '../components/GroceryList'
 
-const mapStateToProps = (state) => {
-  return {
-    groceryList: state.groceryList,
-  }
-};
-
 const mapDispatchToProps = (dispatch) => {
   return {
     togglePurchased: (id) => {
@@ -17,7 +11,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const GroceryListContainer = connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(GroceryList);
 
