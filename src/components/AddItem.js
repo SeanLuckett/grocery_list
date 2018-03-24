@@ -9,8 +9,9 @@ const AddItem = ({ onSubmit, visible }) => {
   const formVisibility = visible ? 'contents' : 'none';
 
   return (
-    <Paper style={{ textAlign: "center", display: formVisibility }}>
+    <Paper style={{ display: formVisibility }}>
       <form className="addItemForm"
+            style={{paddingLeft: '5%'}}
             onSubmit={onSubmit}>
         <TextField name="name"
                    hintText="Item name"
@@ -18,6 +19,11 @@ const AddItem = ({ onSubmit, visible }) => {
         <FlatButton label="Add"
                     secondary={true}
                     type="submit"/>
+        <br/>
+        <TextField name="category"
+                   hintText="Category name"
+                   floatingLabelText="Add optional category"/>
+
       </form>
     </Paper>
   )

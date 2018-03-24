@@ -10,21 +10,13 @@ import AppContainer from './containers/AppContainer';
 
 import registerServiceWorker from './registerServiceWorker';
 
-const mockGroceries = [
-  {
+const mockGroceries = [{
     id: 1,
     name: 'bananas',
     cost: null,
     category: 'Produce',
     purchased: false,
-  }, {
-    id: 2,
-    name: 'helicopter',
-    cost: null,
-    category: null,
-    purchased: false,
-  }
-];
+  }];
 
 let store = createStore(groceryListApp, {
   groceryList: mockGroceries,
