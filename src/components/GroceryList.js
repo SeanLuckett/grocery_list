@@ -4,7 +4,6 @@ import PropType from 'prop-types';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
-import ToggleCheckbox from 'material-ui/svg-icons/toggle/check-box';
 
 class GroceryList extends Component {
   constructor(props) {
@@ -16,7 +15,7 @@ class GroceryList extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      groceryList: this.sortGroceryList(nextProps.groceryList),
+      groceryList: nextProps.groceryList,
     })
   }
 
@@ -31,9 +30,9 @@ class GroceryList extends Component {
     unsortedList.forEach(item => {
       if (item.purchased === true) {
         sortedList['Crossed Out'].push(item);
-      } else if(categories.includes(item.category)) {
+      } else if (categories.includes(item.category)) {
         sortedList[item.category].push(item)
-      } else if(item.category && !categories.includes(item.category)) {
+      } else if (item.category && !categories.includes(item.category)) {
         sortedList[item.category] = [item];
         categories.push(item.category);
       } else {
@@ -44,35 +43,51 @@ class GroceryList extends Component {
     return sortedList;
   }
 
-  sortGroceryList(list) {
-    const purchasedItems = list.filter(item => item.purchased);
-    const unpurchasedItems = list.filter(item => !item.purchased);
-    return unpurchasedItems.concat(purchasedItems);
-  }
+  _sortedCategories(catListObj) {
+    let categories = Object.keys(catListObj);
+    categories = categories.filter(cat =>
+      (cat !== 'Uncategorized' && cat !== 'Crossed Out')
+    );
+    categories.push('Uncategorized');
+    categories.push('Crossed Out');
 
+    return categories;
+  }
   render() {
     const { togglePurchased } = this.props;
-    const { groceryList } = this.state;
+    const categorizedList = this._organizeListByCategories();
+    const categories = this._sortedCategories(categorizedList);
+    let renderedList = [];
 
-    const list = groceryList.map(item => {
-      const crossedOut = item.purchased ? 'line-through' : 'none';
-      const crossedOutIcon = item.purchased? <ToggleCheckbox/> : null;
+    categories.forEach(category => {
 
-      return (
-        <ListItem primaryText={item.name}
-                  key={item.id}
-                  onClick={() => {
-                    togglePurchased(item.id)
-                  }}
-                  leftIcon={crossedOutIcon}
-                  style={{ textDecoration: crossedOut }}/>
+      renderedList.push(
+        <Subheader className='list-category' key={category}>{category}</Subheader>
       );
+
+      const items = categorizedList[category].map(item => {
+        const crossedOut = item.purchased ? 'line-through' : 'none';
+
+        return (
+          <ListItem primaryText={item.name}
+                    key={item.id}
+                    onClick={() => {
+                      togglePurchased(item.id)
+                    }}
+                    style={{
+                      textDecoration: crossedOut,
+                      paddingLeft: '20px'
+                    }}/>
+        );
+      });
+
+      renderedList.push(items);
     });
 
     return (
       <Paper>
-        <List style={{ textAlign: "center" }}>
-          {list}
+        <List>
+          {renderedList}
         </List>
       </Paper>
     );
