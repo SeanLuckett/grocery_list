@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import PropType from 'prop-types';
 
-import {List, ListItem} from 'material-ui/List';
-import ToggleCheckbox from 'material-ui/svg-icons/toggle/check-box';
 import Paper from 'material-ui/Paper';
+import {List, ListItem} from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import ToggleCheckbox from 'material-ui/svg-icons/toggle/check-box';
 
 class GroceryList extends Component {
   constructor(props) {
@@ -17,6 +18,30 @@ class GroceryList extends Component {
     this.setState({
       groceryList: this.sortGroceryList(nextProps.groceryList),
     })
+  }
+
+  _organizeListByCategories() {
+    const unsortedList = this.state.groceryList;
+    let sortedList = {
+      "Uncategorized": [],
+      "Crossed Out": [],
+    };
+    let categories = Object.keys(sortedList);
+
+    unsortedList.forEach(item => {
+      if (item.purchased === true) {
+        sortedList['Crossed Out'].push(item);
+      } else if(categories.includes(item.category)) {
+        sortedList[item.category].push(item)
+      } else if(item.category && !categories.includes(item.category)) {
+        sortedList[item.category] = [item];
+        categories.push(item.category);
+      } else {
+        sortedList['Uncategorized'].push(item);
+      }
+    });
+
+    return sortedList;
   }
 
   sortGroceryList(list) {
