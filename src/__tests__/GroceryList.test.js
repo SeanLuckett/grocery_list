@@ -1,5 +1,3 @@
-import React from 'react';
-import TestRenderer from 'react-test-renderer';
 import GroceryList from '../components/GroceryList';
 
 describe('#_organizeListByCategories', () => {

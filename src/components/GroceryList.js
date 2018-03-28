@@ -53,6 +53,7 @@ class GroceryList extends Component {
 
     return categories;
   }
+  
   render() {
     const { togglePurchased } = this.props;
     const categorizedList = this._organizeListByCategories();
