@@ -35,6 +35,12 @@ class App extends Component {
 
     return (
       <div className="App">
+        <div className="code-link">
+          <a href="https://github.com/SeanLuckett/grocery_list" target="_blank">
+            See the code
+          </a>
+        </div>
+
         <AppBar title="Grocery List" showMenuIconButton={false}/>
 
         <Toolbar>
